@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application JT</string>
+    <string name="backup_app_data">Backup App Data</string>
+    <string name="backup">Backup</string>
+    <string name="restore">Restore</string>
+    <string name="browse_files">Browse Files</string>
+    <string name="hello_world">Hello World!</string>
+</resources>

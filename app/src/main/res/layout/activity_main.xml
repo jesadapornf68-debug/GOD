@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8F4FB"
+    tools:context=".MainActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 1. Header Area: Avatar, Welcome Text, Notification Bell -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/ivUserAvatar"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_profile_placeholder"
+                    android:contentDescription="User Avatar" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/ivUserAvatar"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="สวัสดี"
+                        android:textColor="#0B4F6C"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="คุณ user"
+                        android:textColor="#0D47A1"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+
+                    <!-- Notification Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnNotification"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardBackgroundColor="#E1F5FE"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_bell"
+                            app:tint="#0D47A1"
+                            android:contentDescription="Notification" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Exit / Logout Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnExitApp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardBackgroundColor="#FFEBEE"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@android:drawable/ic_lock_power_off"
+                            app:tint="#D32F2F"
+                            android:contentDescription="Exit" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- 2. Home Address Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardHomeAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeColor="#C5D8E8"
+                app:strokeWidth="1dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/ivHomeIcon"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/ic_home_blue"
+                        app:tint="#0D47A1"
+                        android:contentDescription="Home Icon" />
+
+                    <TextView
+                        android:id="@+id/tvHomeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/ivHomeIcon"
+                        android:layout_alignTop="@id/ivHomeIcon"
+                        android:layout_marginStart="8dp"
+                        android:text="ที่อยู่บ้าน"
+                        android:textColor="#0D47A1"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/btnEditAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@id/ivHomeIcon"
+                        android:text="แก้ไข"
+                        android:textColor="#546E7A"
+                        android:textSize="12sp"
+                        android:background="?attr/selectableItemBackground"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp" />
+
+                    <TextView
+                        android:id="@+id/tvSavedAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvHomeLabel"
+                        android:layout_toEndOf="@id/ivHomeIcon"
+                        android:layout_toStartOf="@id/ivLocationPin"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="99/9 หมู่ 7 ต.ท่าโพธิ์ อ.เมือง จ.พิษณุโลก 65000"
+                        android:textColor="#37474F"
+                        android:textSize="13sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/ivLocationPin"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignBottom="@id/tvSavedAddress"
+                        app:cardCornerRadius="16dp"
+                        app:cardBackgroundColor="#E3F2FD"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_location_pin"
+                            app:tint="#0D47A1"
+                            android:contentDescription="Location Pin" />
+                    </com.google.android.material.card.MaterialCardView>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 3. Pet Profile Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPetInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeColor="#C5D8E8"
+                app:strokeWidth="1dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardPetImage"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:id="@+id/ivPetImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_pet_logo"
+                            android:contentDescription="Pet Photo" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/cardPetImage"
+                        android:layout_toStartOf="@id/ivChevron"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvPetName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sania"
+                                android:textColor="#0D47A1"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvPetGender"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:text="♂"
+                                android:textColor="#1976D2"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvPetBreedAge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="แมว • 2 ปี 1 เดือน"
+                            android:textColor="#546E7A"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tvPetWeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="น้ำหนัก 5.5 กก."
+                            android:textColor="#546E7A"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tvPetStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:background="#E8F5E9"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp"
+                            android:text="✚ สุขภาพปกติ"
+                            android:textColor="#2E7D32"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivChevron"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="#1565C0"
+                        android:contentDescription="Next" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 4. Next Appointment Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNextAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FDF0F6"
+                app:strokeWidth="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/ivApptIcon"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/ic_calendar_icon"
+                        app:tint="#C2185B"
+                        android:contentDescription="Calendar" />
+
+                    <TextView
+                        android:id="@+id/tvApptTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/ivApptIcon"
+                        android:layout_alignTop="@id/ivApptIcon"
+                        android:layout_marginStart="8dp"
+                        android:text="นัดหมายครั้งถัดไป"
+                        android:textColor="#880E4F"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvApptDateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvApptTitle"
+                        android:layout_toEndOf="@id/ivApptIcon"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="🗓 10 ก.ย. 2026   10:30 น."
+                        android:textColor="#AD1457"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvApptHospital"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvApptDateTime"
+                        android:layout_toEndOf="@id/ivApptIcon"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="2dp"
+                        android:text="📍 โรงพยาบาลสัตว์พิษณุโลก"
+                        android:textColor="#AD1457"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/btnApptDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignBottom="@id/tvApptHospital"
+                        android:background="#F8BBD0"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="ดูรายละเอียด"
+                        android:textColor="#880E4F"
+                        android:textSize="11sp" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 5. Vaccine Schedule Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardVaccineDue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFF9E6"
+                app:strokeWidth="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/ivVaccineIcon"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/ic_vaccine"
+                        app:tint="#F57F17"
+                        android:contentDescription="Vaccine" />
+
+                    <TextView
+                        android:id="@+id/tvVaccineTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/ivVaccineIcon"
+                        android:layout_alignTop="@id/ivVaccineIcon"
+                        android:layout_marginStart="8dp"
+                        android:text="ถึงกำหนดฉีดวัคซีน"
+                        android:textColor="#E65100"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvVaccineName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvVaccineTitle"
+                        android:layout_toEndOf="@id/ivVaccineIcon"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="พิษสุนัขบ้า"
+                        android:textColor="#F57F17"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tvVaccineDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvVaccineName"
+                        android:layout_toEndOf="@id/ivVaccineIcon"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="2dp"
+                        android:text="10 ต.ค. 2026"
+                        android:textColor="#FB8C00"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/btnVaccineDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignBottom="@id/tvVaccineDate"
+                        android:background="#FFE082"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="ดูรายละเอียด"
+                        android:textColor="#E65100"
+                        android:textSize="11sp" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 6. Quick Menu Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="เมนูด่วน"
+                android:textColor="#0D47A1"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Row 1: 3 cards (Hospital, Appointment, Pet Info) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
+
+                <!-- 1. ค้นหา โรงพยาบาล -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardHospital"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#E0F7FA"
+                    app:strokeColor="#B2EBF2"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_hospital"
+                            app:tint="#00838F"
+                            android:contentDescription="Hospital" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="ค้นหา\nโรงพยาบาล"
+                            android:textColor="#006064"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 2. นัดหมาย ออนไลน์ -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardAppointment"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#FFFDE7"
+                    app:strokeColor="#FFF59D"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_calendar_icon"
+                            app:tint="#F57F17"
+                            android:contentDescription="Appointment" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="นัดหมาย\nออนไลน์"
+                            android:textColor="#F57F17"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 3. ข้อมูลสัตว์เลี้ยง -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardPetInfoMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#F3E5F5"
+                    app:strokeColor="#E1BEE7"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_paw"
+                            app:tint="#8E24AA"
+                            android:contentDescription="Pet Info" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="ข้อมูลสัตว์เลี้ยง"
+                            android:textColor="#4A148C"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Row 2: 2 cards (Settings/Backup, Pet Tracking) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <!-- 4. จัดการ / สำรองข้อมูล -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSettings"
+                    android:layout_width="0dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#ECEFF1"
+                    app:strokeColor="#CFD8DC"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_folder"
+                            app:tint="#546E7A"
+                            android:contentDescription="Settings" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="จัดการ / สำรอง\nข้อมูล"
+                            android:textColor="#263238"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 5. ติดตามตำแหน่ง -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardPetTracking"
+                    android:layout_width="0dp"
+                    android:layout_height="110dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#FFEBEE"
+                    app:strokeColor="#FFCDD2"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_location_pin"
+                            app:tint="#E53935"
+                            android:contentDescription="Pet Tracking" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:text="ติดตามตำแหน่ง"
+                            android:textColor="#C62828"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 7. Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:paddingVertical="4dp">
+
+        <!-- 1. Home -->
+        <LinearLayout
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_home_blue"
+                app:tint="#0D47A1"
+                android:contentDescription="หน้าหลัก" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="หน้าหลัก"
+                android:textColor="#0D47A1"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- 2. Hospital -->
+        <LinearLayout
+            android:id="@+id/navHospital"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_hospital"
+                app:tint="#78909C"
+                android:contentDescription="โรงพยาบาล" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="โรงพยาบาล"
+                android:textColor="#78909C"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- 3. Appointment -->
+        <LinearLayout
+            android:id="@+id/navAppointment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_calendar_icon"
+                app:tint="#78909C"
+                android:contentDescription="นัดหมาย" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="นัดหมาย"
+                android:textColor="#78909C"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- 4. Owner Info -->
+        <LinearLayout
+            android:id="@+id/navOwner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_profile"
+                app:tint="#78909C"
+                android:contentDescription="ข้อมูลเจ้าของ" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="ข้อมูลเจ้าของ"
+                android:textColor="#78909C"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- 5. More -->
+        <LinearLayout
+            android:id="@+id/navMore"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_dots_more"
+                app:tint="#78909C"
+                android:contentDescription="เพิ่มเติม" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="เพิ่มเติม"
+                android:textColor="#78909C"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

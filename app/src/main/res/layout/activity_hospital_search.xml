@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8F4FB"
+    tools:context=".HospitalSearchActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 1. Header Bar: Back Button & Title -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_arrow_back"
+                    app:tint="#0D47A1"
+                    android:contentDescription="Back"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="ค้นหาโรงพยาบาล"
+                    android:textColor="#0D47A1"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <!-- 2. Search Input Field -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeColor="#1E88E5"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_search"
+                        app:tint="#1E88E5"
+                        android:contentDescription="Search" />
+
+                    <EditText
+                        android:id="@+id/etSearchHospital"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:background="@null"
+                        android:hint="ค้นหาชื่อโรงพยาบาล / คลินิก / พื้นที่"
+                        android:textColor="#263238"
+                        android:textColorHint="#90A4AE"
+                        android:textSize="14sp"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 3. Filters Card Container (Pet Type, Services, Distance) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Section A: ข้อมูลสัตว์ -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ข้อมูลสัตว์"
+                        android:textColor="#0D47A1"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- สุนัข (Selected) -->
+                            <TextView
+                                android:id="@+id/chipDog"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#1E88E5"
+                                android:gravity="center"
+                                android:paddingHorizontal="16dp"
+                                android:text="🐶 สุนัข"
+                                android:textColor="#FFFFFF"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <!-- แมว -->
+                            <TextView
+                                android:id="@+id/chipCat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="16dp"
+                                android:text="🐱 แมว"
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+
+                            <!-- กระต่าย -->
+                            <TextView
+                                android:id="@+id/chipRabbit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="16dp"
+                                android:text="🐰 กระต่าย"
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+
+                            <!-- นก -->
+                            <TextView
+                                android:id="@+id/chipBird"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="16dp"
+                                android:text="🐦 นก"
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <!-- Section B: บริการ -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="บริการ"
+                        android:textColor="#0D47A1"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- ตรวจทั่วไป (Selected light blue) -->
+                            <TextView
+                                android:id="@+id/chipCheckup"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#E3F2FD"
+                                android:gravity="center"
+                                android:paddingHorizontal="14dp"
+                                android:text="ตรวจทั่วไป"
+                                android:textColor="#1E88E5"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <!-- ฉีดวัคซีน -->
+                            <TextView
+                                android:id="@+id/chipVaccine"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="14dp"
+                                android:text="ฉีดวัคซีน"
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+
+                            <!-- ผ่าตัด -->
+                            <TextView
+                                android:id="@+id/chipSurgery"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="14dp"
+                                android:text="ผ่าตัด"
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+
+                            <!-- X-ray -->
+                            <TextView
+                                android:id="@+id/chipXray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="14dp"
+                                android:text="X-ray"
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+
+                            <!-- ตรวจเลือด -->
+                            <TextView
+                                android:id="@+id/chipBlood"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="14dp"
+                                android:text="ตรวจเลือด"
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+
+                            <!-- เพิ่มเติม ˅ -->
+                            <TextView
+                                android:id="@+id/chipMoreServices"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="12dp"
+                                android:text="เพิ่มเติม ˅"
+                                android:textColor="#546E7A"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="16dp"
+                        android:background="#ECEFF1" />
+
+                    <!-- Section C: ระยะทาง -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ระยะทาง"
+                        android:textColor="#0D47A1"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- ใกล้ที่สุด (Selected) -->
+                            <TextView
+                                android:id="@+id/chipNearest"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#1E88E5"
+                                android:gravity="center"
+                                android:paddingHorizontal="16dp"
+                                android:text="ใกล้ที่สุด"
+                                android:textColor="#FFFFFF"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <!-- 5 กม. -->
+                            <TextView
+                                android:id="@+id/chip5km"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="16dp"
+                                android:text="5 กม."
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+
+                            <!-- 10 กม. -->
+                            <TextView
+                                android:id="@+id/chip10km"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="16dp"
+                                android:text="10 กม."
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+
+                            <!-- 20 กม. -->
+                            <TextView
+                                android:id="@+id/chip20km"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:layout_marginEnd="8dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="16dp"
+                                android:text="20 กม."
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+
+                            <!-- 15 กม. -->
+                            <TextView
+                                android:id="@+id/chip15km"
+                                android:layout_width="wrap_content"
+                                android:layout_height="36dp"
+                                android:background="#F5F7FA"
+                                android:gravity="center"
+                                android:paddingHorizontal="16dp"
+                                android:text="15 กม."
+                                android:textColor="#37474F"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 4. Title: โรงพยาบาลใกล้คุณ -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="โรงพยาบาลใกล้คุณ"
+                android:textColor="#0D47A1"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- 5. Hospital List Cards -->
+
+            <!-- Empty State Message when no filter matches -->
+            <TextView
+                android:id="@+id/tvNoHospitalFound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="24dp"
+                android:gravity="center"
+                android:text="ไม่พบโรงพยาบาลที่ตรงตามเงื่อนไขที่เลือก"
+                android:textColor="#78909C"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <!-- Hospital A -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardHospitalA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeWidth="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardImgA"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_pet_logo"
+                            android:contentDescription="Hospital A Image" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/cardImgA"
+                        android:layout_toStartOf="@id/ivChevronA"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="โรงพยาบาลสัตว์พิษณุโลก"
+                            android:textColor="#0D47A1"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_star"
+                                android:contentDescription="Star" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:text="4.8"
+                                android:textColor="#FBC02D"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:text="(120 รีวิว)"
+                                android:textColor="#78909C"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvDistA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="📍 2.3 กม."
+                            android:textColor="#1E88E5"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="🕒 เปิด 8:00 - 20:00"
+                            android:textColor="#546E7A"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivChevronA"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="#1E88E5"
+                        android:contentDescription="Next" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Hospital B -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardHospitalB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeWidth="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardImgB"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_pet_logo"
+                            android:contentDescription="Hospital B Image" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/cardImgB"
+                        android:layout_toStartOf="@id/ivChevronB"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="โรงพยาบาลสัตว์มหาวิทยาลัยนเรศวร"
+                            android:textColor="#0D47A1"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_star"
+                                android:contentDescription="Star" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:text="4.6"
+                                android:textColor="#FBC02D"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:text="(87 รีวิว)"
+                                android:textColor="#78909C"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvDistB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="📍 2.7 กม."
+                            android:textColor="#1E88E5"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="🕒 เปิด 9:00 - 19:00"
+                            android:textColor="#546E7A"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivChevronB"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="#1E88E5"
+                        android:contentDescription="Next" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Hospital C -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardHospitalC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeWidth="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardImgC"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_pet_logo"
+                            android:contentDescription="Hospital C Image" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/cardImgC"
+                        android:layout_toStartOf="@id/ivChevronC"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="โรงพยาบาลสัตว์เอกอารักษ์ พิษณุโลก"
+                            android:textColor="#0D47A1"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_star"
+                                android:contentDescription="Star" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:text="4.5"
+                                android:textColor="#FBC02D"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:text="(78 รีวิว)"
+                                android:textColor="#78909C"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvDistC"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="📍 4.7 กม."
+                            android:textColor="#1E88E5"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="🕒 เปิด 6:30 - 18:30"
+                            android:textColor="#546E7A"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivChevronC"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="#1E88E5"
+                        android:contentDescription="Next" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 6. Action Button: ดูแผนที่ทั้งหมด -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnViewAllMap"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="24dp"
+                android:text="ดูแผนที่ทั้งหมด"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:backgroundTint="#1E88E5"
+                app:cornerRadius="26dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 7. Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        android:paddingVertical="4dp">
+
+        <!-- 1. Home -->
+        <LinearLayout
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_home_blue"
+                app:tint="#78909C"
+                android:contentDescription="หน้าหลัก" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="หน้าหลัก"
+                android:textColor="#78909C"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- 2. Hospital (Active) -->
+        <LinearLayout
+            android:id="@+id/navHospital"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_hospital"
+                app:tint="#0D47A1"
+                android:contentDescription="โรงพยาบาล" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="โรงพยาบาล"
+                android:textColor="#0D47A1"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- 3. Appointment -->
+        <LinearLayout
+            android:id="@+id/navAppointment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_calendar_icon"
+                app:tint="#78909C"
+                android:contentDescription="นัดหมาย" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="นัดหมาย"
+                android:textColor="#78909C"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- 4. Owner Info -->
+        <LinearLayout
+            android:id="@+id/navOwner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_profile"
+                app:tint="#78909C"
+                android:contentDescription="ข้อมูลเจ้าของ" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="ข้อมูลเจ้าของ"
+                android:textColor="#78909C"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- 5. More -->
+        <LinearLayout
+            android:id="@+id/navMore"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_dots_more"
+                app:tint="#78909C"
+                android:contentDescription="เพิ่มเติม" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="เพิ่มเติม"
+                android:textColor="#78909C"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
